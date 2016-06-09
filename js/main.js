@@ -655,6 +655,9 @@ var GameState={
 
 			this.brickdest.destroy();
 			this.brickdestText.destroy();
+
+			this.panda_colecttioners.destroy();
+			this.panda_colecttionersText.destroy();
 	},
 
 	clickOnActionGames: function()
@@ -685,13 +688,13 @@ var GameState={
 
 			    this.brickdestText = this.game.add.text(58, 500, "Brick Des", gamestyle);
 
-			    this.brickdest = this.game.add.sprite(150, 480, 'panda_colecttioners');
-			    this.brickdest.anchor.setTo(0.5);
-			    this.brickdest.inputEnabled = true;
+			    this.panda_colecttioners = this.game.add.sprite(150, 480, 'panda_colecttioners');
+			    this.panda_colecttioners.anchor.setTo(0.5);
+			    this.panda_colecttioners.inputEnabled = true;
 
-			    this.brickdest.events.onInputDown.add(this.showtry2, this);	
+			    this.panda_colecttioners.events.onInputDown.add(this.showtry2, this);	
 
-			    this.brickdestText = this.game.add.text(120, 500, "    Panda \nCollectors", gamestyle);
+			    this.panda_colecttionersText = this.game.add.text(120, 500, "    Panda \nCollectors", gamestyle);
 
 		}
 	},
