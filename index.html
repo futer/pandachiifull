@@ -1,53 +1,142 @@
-<!DOCTYPE html> 
-<html> 
+<!--
+Copytighy Tomasz Jeznach
+NWSTUDIO.ESY>ES
+-->
 
-<head> 
-	<meta charset="utf-8" /> 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- css -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
+	<link href="color/default.css" rel="stylesheet" media="screen">
+	<script src="js/modernizr.custom.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" /> 
 	<title>Pandachii</title> 
 	<link type="text/css" rel="stylesheet" href="css/main.css"/>
-	<script src="js/phaser.js"></script> 
-	<link rel="stylesheet" type="text/css" href="styles.css">
-</head> 
+      </head>
+  <body>
 
-<body> 
+	  <!-- intro area -->	  
+	  <div id="wstep">
+	  
+			<div class="intro-text">
+				<div class="container">
+					<div class="row">
+					<div class="col-md-12">
+			
+						<div class="brand">
+							<h1 style="color: #000">Witaj przybyszu,</h1>
+							<div class="line-spacer"></div>
+							<p ><span style="color: #000">Właśnie odkryłeś wspaniałe miejsce, gdzie znajdziesz będzie walczył o życie swojej własnej pandy. Wierzę w Ciebie! Dasz radę! Walcz! A będzie Ci dane! </span></p>
+						</div>
 
+						<br/>
+						<br/>
+						<a href="#prj"><img src="img/arrow.png" height="5%" width="5%" /></a>
+					</div>
+					</div>
+				</div>
+		 	</div>
+			
+	 </div>
 
-	<div id="main" style="display: block;">
-	<center>
-	<a href='#' id='mylink'><img src="img/button_start.png"/></a>
-	</center>
-	</div>
+ 	<!-- O projekcie -->
 
-			<script type="text/javascript">
-
-				var myLink = document.getElementById('mylink');
-				
-				myLink.onclick = function(){
-				var hide = document.getElementById('main').style.display = 'none' ;
-					var script;
-					script = document.createElement("script");
-				    script.type = "text/javascript";
-				    script.src = "js/brick-destroy.js"; 
-				    document.getElementsByTagName("head")[0].appendChild(script);
-				    
-					script = document.createElement("script");
-				    script.type = "text/javascript";
-				    script.src = "js/colectcoin.js"; 
-				    document.getElementsByTagName("head")[0].appendChild(script);
-
-				    script = document.createElement("script");
-				    script.type = "text/javascript";
-				    script.src = "js/main.js"; 
-				    document.getElementsByTagName("head")[0].appendChild(script);
-
+ 		<div id="prj">
+	  
+			<div class="intro-text">
+				<div class="container">
+					<div class="row">
 					
-				    return false;
+						
+					<div class="col-md-12">
+			
+						<div class="brand">
+							<h1 style="color: #FFF">O projekcie!</h1>
+							<div class="line-spacer"></div>
+							<p ><span style="color: #FFF">Twoim zadaniem będzie opiekowanie się swoją własną padną
+							Będziesz musiał dbać by nie była głodna, miała dostatecznie sporo rozrywki.
+							Projekt ciągle się będzie rozwijał więc na pewno się nie bedziesz nudził</span></p>
+						</div>
+						<br/>
+						<br/>
+						<a href="#howpll"><img src="img/arrow.png" height="5%" width="5%" /></a>
+					</div>
+					</div>
+				</div>
+		 	</div>
+			
+	 </div>
 
-				}
-			</script>
+ 	<!-- koniec O projekcie-->
+	 
 
-</body> 
+ 	<!-- howpll -->
+ 		<div id="howpll">
+	  
+			<div class="intro-text">
+				<div class="container">
+					<div class="row">
+					
+						
+					<div class="col-md-12">
+			
+						<div class="brand">
+							<h1 style="color: #2A3E81">Jak zagrać w wersję próbną?</h1>
+							<div class="line-spacer"></div>
+							<p><span style="color: #2A3E81">Wejdź w link poniżej!</span></p>
+						</div>
 
+						<div style="padding-bottom: 20px; padding-top: 20px;">
+								<a href='main/index.html'><img src="img/button_start.png"/></a>
+						</div>
+
+						<br/>
+						<br/>
+						<a href="#repo"><img src="img/arrow.png" height="5%" width="5%" /></a>
+					</div>
+					</div>
+				</div>
+		 	</div>
+			
+	 </div>
+ 	<!-- koniec howpll -->
+
+ 	<!-- repo -->
+ 		<div id="repo">
+	  
+			<div class="intro-text">
+				<div class="container">
+					<div class="row">
+					
+						
+					<div class="col-md-12">
+			
+						<div class="brand">
+							<h1>
+							<a href="http://nwstudio.esy.es/#fourths">Masz jakieś uwagi? Propozycje? Skontaktuj się ze mną!
+							</a></h1>
+							<div class="line-spacer"></div>
+						</div>
+						<br/>
+						<br/>
+					</div>
+					</div>
+				</div>
+		 	</div>
+			
+	 </div>
+ 	<!-- koniec repo -->
+	 
+	 <!-- js -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.smooth-scroll.min.js"></script>
+	<script src="js/jquery.dlmenu.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script src="js/custom.js"></script>
+  	
 </html>
-
