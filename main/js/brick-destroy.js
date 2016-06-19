@@ -98,9 +98,11 @@ var mainState = {
 
     	if(brickCounts == 25)
 	    {
-	    	this.ball.y = 400
-		    brickCounts = 0;
-	    	this.addBricks();
+	    	if(this.ball.y > 400)
+	    	{
+				brickCounts = 0;
+	    		this.addBricks();
+	    	}
 
 	    }
 

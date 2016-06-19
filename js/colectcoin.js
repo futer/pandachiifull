@@ -10,7 +10,7 @@ var collectcoinsState = {
 
     game.load.image('player', 'img/collection/panda.png');
 	game.load.image('wall', 'img/collection/wall.png');
-	game.load.image('coin', 'img/collection/coin.png');
+	game.load.image('coin', 'img/collection/coin.gif');
 	game.load.image('enemy', 'img/collection/lava.png'); 
         
     },
