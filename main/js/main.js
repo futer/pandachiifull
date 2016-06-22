@@ -73,22 +73,24 @@ var GameState={
     pet = this.game.add.sprite(180, 380, 'pet1',0);
     pet.anchor.setTo(0.5);
 
+	//draggable pet
+    pet.inputEnabled = true;
+    pet.input.enableDrag();
+    
 	if (!game.pet) {
       var health, fun, coin;
 
-      	health = this.game.yourGameData.health;
-      	fun = this.game.yourGameData.fun;
-      	coin = this.game.yourGameData.coin;
+      health = this.game.yourGameData.health;
+      fun = this.game.yourGameData.fun;
+      coin = this.game.yourGameData.coin;
 
-      	//custom properties of the pet
-      	game.pet.customParams = {health, fun, coin};
+      //custom properties of the pet
+      game.pet={customParams : {health, fun, coin}};
     }
 
 	var eating = pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
 
-    //draggable pet
-    pet.inputEnabled = true;
-    pet.input.enableDrag();
+    
 
     //Physxic add
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
