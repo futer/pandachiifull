@@ -2,7 +2,7 @@ var text;
 var count;
 var brickCounts = 0;
 
-var mainState = {  
+var brickDestroGame = {  
 
     preload: function() 
     {  

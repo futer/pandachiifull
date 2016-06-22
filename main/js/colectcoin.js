@@ -68,7 +68,7 @@ var level1 = [
 
 var select_level = level1;
 
-var collectcoinsState = {  
+var collectCoinsState = {  
 
 	colectioncoins: 0,
 	textcoins: "",

@@ -2,12 +2,13 @@ var GlobalPoint =
 {
 	score: 0
 }
+var yourGameData;
 
 var number_of_apple = 0;
 var number_of_banana = 1;
 var number_of_bamboshoot = 1;
 var number_of_lettuce = 1;
-var panda_name;
+
 var GameState={
 
   preload: function()
@@ -64,15 +65,21 @@ var GameState={
    	this.background = this.game.add.sprite(0,0, 'backyard');
     this.background.inputEnabled = true;
     this.background.events.onInputDown.add(this.placeItem, this);
-
-
-    this.set_name();
     
     this.pet = this.game.add.sprite(180, 380, 'pet1',0);
     this.pet.anchor.setTo(0.5);
 
+    //set health
+
+    var health, fun, coin;
+
+    
+    health = this.game.yourGameData.health;
+    fun = this.game.yourGameData.fun;
+    coin = this.game.yourGameData.coin;
+
     //custom properties of the pet
-    this.pet.customParams = {health: 100, fun: 100, coin: 1000};
+    this.pet.customParams = {health, fun, coin};
 
 	var eating = this.pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
 
@@ -698,6 +705,8 @@ var GameState={
 			    this.panda_colecttioners.events.onInputDown.add(this.showtry2, this);	
 
 			    this.panda_colecttionersText = this.game.add.text(120, 500, "    Panda \nCollectors", gamestyle);
+				this.panda_colecttionersText.lineSpacing = -8;
+    
 
 		}
 	},
@@ -938,34 +947,29 @@ var GameState={
 		}
 	},
 
-	set_name: function()
-	{
-		var background_set_name = new Phaser.Rectangle(0,0, 600, 550);
-
-	},
-
 	showtry: function()
 	{
-
-		this.game.state.start('mainState');
-		console.log(mainState);
+		this.game.state.start('brickDestroGame');
 
 	},
 
 	showtry2: function()
 	{
 
-		this.game.state.start('collectcoinsState');
-		console.log(collectcoinsState);
+		this.game.state.start('collectCoinsState');
 
 	},
 		
 };
 
 var game = new Phaser.Game(360,640,Phaser.AUTO);
+game.yourGameData = {};
+game.yourGameData.health = 100;
+game.yourGameData.coin = 100;
+game.yourGameData.fun = 100;
 game.state.add('GameState',GameState);
-game.state.add('collectcoinsState',collectcoinsState);
-game.state.add('mainState',mainState);
+game.state.add('collectCoinsState',collectCoinsState);
+game.state.add('brickDestroGame',brickDestroGame);
 
 game.state.start('GameState');
 
