@@ -2,14 +2,17 @@ var GlobalPoint =
 {
 	score: 0
 }
+
 var yourGameData;
 
 var number_of_apple = 0;
 var number_of_banana = 1;
 var number_of_bamboshoot = 1;
 var number_of_lettuce = 1;
+var pet;
 
 var GameState={
+
 
   preload: function()
   {
@@ -66,8 +69,8 @@ var GameState={
     this.background.inputEnabled = true;
     this.background.events.onInputDown.add(this.placeItem, this);
     
-    this.pet = this.game.add.sprite(180, 380, 'pet1',0);
-    this.pet.anchor.setTo(0.5);
+    pet = this.game.add.sprite(180, 380, 'pet1',0);
+    pet.anchor.setTo(0.5);
 
     //set health
 
@@ -79,25 +82,25 @@ var GameState={
     coin = this.game.yourGameData.coin;
 
     //custom properties of the pet
-    this.pet.customParams = {health, fun, coin};
+    pet.customParams = {health, fun, coin};
 
-	var eating = this.pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
+	var eating = pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
 
     //draggable pet
-    this.pet.inputEnabled = true;
-    this.pet.input.enableDrag();
+    pet.inputEnabled = true;
+    pet.input.enableDrag();
 
     //Physxic add
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	this.game.physics.arcade.gravity.y = 100;
 
-	this.game.physics.enable( this.pet, Phaser.Physics.ARCADE);
+	this.game.physics.enable( pet, Phaser.Physics.ARCADE);
 
 	this.game.world.setBounds(0, 0, 400, 450);
 
-    this.pet.body.collideWorldBounds = true;
-    this.pet.body.bounce.y = 0.4;
-    this.pet.body.gravity.y = 200;
+    pet.body.collideWorldBounds = true;
+    pet.body.bounce.y = 0.4;
+    pet.body.gravity.y = 200;
 
 
 
@@ -168,16 +171,16 @@ var GameState={
 
 	reduceProperties: function() 
 	{
-	    this.pet.customParams.health = Math.max(0, this.pet.customParams.health - 10);
-	    this.pet.customParams.fun = Math.max(0, this.pet.customParams.fun - 10);
+	    pet.customParams.health = Math.max(0, pet.customParams.health - 10);
+	    pet.customParams.fun = Math.max(0, pet.customParams.fun - 10);
 	    this.refreshStats();
 	},
 
 	refreshStats: function() 
 	{
-	    this.healthText.text = this.pet.customParams.health;
-	    this.funText.text = this.pet.customParams.fun;
-	    this.coinText.text = this.pet.customParams.coin;
+	    this.healthText.text = pet.customParams.health;
+	    this.funText.text = pet.customParams.fun;
+	    this.coinText.text = pet.customParams.coin;
 
 	},
 
@@ -193,26 +196,26 @@ var GameState={
 
 	update: function() 
 	{ 
-	    if(this.pet.customParams.health <= 80 || this.pet.customParams.fun <= 80)
+	    if(pet.customParams.health <= 80 || pet.customParams.fun <= 80)
 	    {
-	    	this.pet.frame = 1;
+	    	pet.frame = 1;
 	    }
 
-	    if(this.pet.customParams.health <= 60 || this.pet.customParams.fun <= 60)
+	    if(pet.customParams.health <= 60 || pet.customParams.fun <= 60)
 	    {
-	    	this.pet.frame = 2;
+	    	pet.frame = 2;
 	    }
 
-	    if(this.pet.customParams.health <= 20 || this.pet.customParams.fun <= 20)
+	    if(pet.customParams.health <= 20 || pet.customParams.fun <= 20)
 	    {
-	    	this.pet.frame = 3;
+	    	pet.frame = 3;
 	    }
 
-	    if(this.pet.customParams.health <= 0 || this.pet.customParams.fun <= 0) 
+	    if(pet.customParams.health <= 0 || pet.customParams.fun <= 0) 
 	    {
-	     	this.pet.customParams.health = 0;
-	    	this.pet.customParams.fun = 0;
-	    	this.pet.frame = 4;
+	     	pet.customParams.health = 0;
+	    	pet.customParams.fun = 0;
+	    	pet.frame = 4;
 	    	this.uiBlocked = true;
 
 	    	this.restartBackgrund = this.game.add.sprite(82,220, 'restartBackgrund');
@@ -224,10 +227,10 @@ var GameState={
 	    var flaga = false;
 	    var flaga2 = false;
 
-	    if( this.pet.y < 160)
+	    if( pet.y < 160)
 	    {	
 	    	flaga = true;
-	    	if (this.pet.y < 440)
+	    	if (pet.y < 440)
 	    	{
 	    		flaga2 = true;
 	    	}
@@ -237,13 +240,13 @@ var GameState={
 
     	if (flaga2)
     	{
-    		if(this.pet.customParams.fun > 100)
+    		if(pet.customParams.fun > 100)
     		{
-    			this.pet.customParams.fun = 100;
+    			pet.customParams.fun = 100;
     		}
     		else
     		{
-    			this.pet.customParams.fun += 1;  	
+    			pet.customParams.fun += 1;  	
     		}
 		}
 
