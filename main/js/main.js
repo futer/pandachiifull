@@ -9,6 +9,7 @@ var number_of_apple = 0;
 var number_of_banana = 1;
 var number_of_bamboshoot = 1;
 var number_of_lettuce = 1;
+
 var pet;
 
 var GameState={
@@ -72,17 +73,16 @@ var GameState={
     pet = this.game.add.sprite(180, 380, 'pet1',0);
     pet.anchor.setTo(0.5);
 
-    //set health
+	if (!game.pet) {
+      var health, fun, coin;
 
-    var health, fun, coin;
+      	health = this.game.yourGameData.health;
+      	fun = this.game.yourGameData.fun;
+      	coin = this.game.yourGameData.coin;
 
-    
-    health = this.game.yourGameData.health;
-    fun = this.game.yourGameData.fun;
-    coin = this.game.yourGameData.coin;
-
-    //custom properties of the pet
-    pet.customParams = {health, fun, coin};
+      	//custom properties of the pet
+      	game.pet.customParams = {health, fun, coin};
+    }
 
 	var eating = pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
 
