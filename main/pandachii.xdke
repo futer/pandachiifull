@@ -4,7 +4,8 @@
     "initialAutoPluginCount": 0,
     "currentBuildConfiguration": "WebApp",
     "projectFiles": {},
-    "projectDirectories": {}
+    "projectDirectories": {},
+    "currentService": {}
   },
   "editorTab": {
     "currentEditorMode": 0

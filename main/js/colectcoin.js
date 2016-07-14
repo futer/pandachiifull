@@ -81,17 +81,16 @@ var collectCoinsState = {
 	game.load.image('floor', 'img/collection/floor.png');
 	game.load.image('coin', 'img/collection/coin.png');
 	game.load.image('enemy', 'img/collection/lava.png'); 
-	game.load.image('button1', 'img/collection/button1.png');
-    game.load.image('button2', 'img/collection/button2.png');  
+	game.load.image('move', 'img/collection/button_move.png');
 
     },
 
     create: function() {  
+
+    	//Set bound world
 		this.game.world.setBounds(0, 0, 360,640);
    		this.background = this.game.add.sprite(0,0, 'background_colections');
 
-		// Set the background color to blue
-		//game.stage.backgroundColor = '#3598db';
 
 		// Start the Arcade physics system (for movements and collisions)
 		game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -99,56 +98,54 @@ var collectCoinsState = {
 		// Add the physics engine to all game objects
 		game.world.enableBody = true;
 
+		//Set cursos as keyboard
 		this.cursor = game.input.keyboard.createCursorKeys();
 
 		// Create the player in the middle of the game
     	this.player = this.game.add.sprite(70, 100, 'player', 2);
 
     	this.player.inputEnabled = true;
-	    this.player.input.enableDrag();
+	    //this.player.input.enableDrag();
 
+	    //Vertial and collide
 	    this.player.input.allowVerticalDrag = false;
 
 	    this.player.body.collideWorldBounds = true;
 	    this.player.body.immovable = false;
 
+	    //Set movement animation
     	var walking_left = this.player.animations.add('walking_left', [0,1], 1, true);
     	var walking_right = this.player.animations.add('walking_right', [4,5], 1, true);
 
-    	this.buttonleft = this.game.add.sprite(0, 600, 'button1');
 
+    	//Set button movement
+    	this.buttonleft = this.game.add.sprite(0, 530, 'move');
 		this.buttonleft.inputEnabled = true;
-	    this.buttonleft.events.onInputDown.add(this.clickMoveLeft, this);
-	    this.buttonleft.mouseDownCallback = false;
 
-    	this.buttonright = this.game.add.sprite(320, 600, 'button1');
-
+    	this.buttonright = this.game.add.sprite(240, 530, 'move');
 		this.buttonright.inputEnabled = true;
-	    this.buttonright.events.onInputDown.add(this.clickMoveRight, this);
-	    this.buttonright.clicked = false;
 
-    	this.buttonup = this.game.add.sprite(65, 610, 'button2');
-
+    	this.buttonup = this.game.add.sprite(120, 530, 'move');
 		this.buttonup.inputEnabled = true;
-	    this.buttonup.events.onInputDown.add(this.clickMoveUp, this);
-	    this.buttonup.clicked = false;
 
+		//Set button transparenty
+		this.buttonleft.alpha = false;
+		this.buttonright.alpha = false;
+		this.buttonup.alpha = false;
 
-		this.buttonleft.alpha = 0;
-		this.buttonright.alpha = 0;
-		this.buttonup.alpha = 0;
-
-
-
+		//Set spacebar
+		this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 		// Add gravity to make it fall
 		this.player.body.gravity.y = 600;
 
+		//Add group for map
 		this.walls = game.add.group();
 		this.floors = game.add.group();
 		this.coins = game.add.group();
 		this.enemies = game.add.group();
 
+		//select level
 		level = select_level;
 
 		// Create the level by going through the array
@@ -184,30 +181,32 @@ var collectCoinsState = {
 		    }
 		}
 
-				count = 0;
+		//point text and count
+		count = 0;
 
-			    text = game.add.text(5, 5, "Point: 0", 
-			    {
-			        font: "bold 12px Arial",
-			        fill: "#FFF",
+		text = game.add.text(5, 5, "Point: 0", 
+		{
+			font: "bold 12px Arial",
+			fill: "#FFF",
 
-			    });
+		 });
 
-			    this.exiticton = game.add.sprite(335, 5, 'exiticon');  
-			    this.exiticton.inputEnabled = true;
-    		    this.exiticton.events.onInputDown.add(this.clickOnActionExit, this);
+		//Exit icon
+		this.exiticton = game.add.sprite(335, 5, 'exiticon');  
+		this.exiticton.inputEnabled = true;
+    	this.exiticton.events.onInputDown.add(this.clickOnActionExit, this);
 
     },
 
     update: function() {  
 
-    	// Move the player when an arrow key is pressed
-		if (this.cursor.left.isDown) 
+    	// Move the player when an arrow key is pressed and 
+		if (this.cursor.left.isDown || this.buttonleft.input.pointerOver()) 
 		{
 			this.player.body.velocity.x = -160;
 			this.player.animations.play('walking_left', 12, false);
 		}
-		else if (this.cursor.right.isDown) 
+		else if (this.cursor.right.isDown || this.buttonright.input.pointerOver()) 
 		{
 			this.player.body.velocity.x = 160;
 			this.player.animations.play('walking_right', 12, false);
@@ -216,7 +215,6 @@ var collectCoinsState = {
 		{
 			this.player.body.velocity.x = 0;
 			this.player.frame = 2;
-
 		}
 
 		// Make the player and the walls collide
@@ -225,14 +223,11 @@ var collectCoinsState = {
 
 
 		// Make the player jump if he is touching the ground
-		if (this.cursor.up.isDown && this.player.body.touching.down) 
+		if (this.spaceKey.isDown && this.player.body.touching.down ||this.buttonup.input.pointerOver() &&  this.player.body.touching.down) 
 		{
 		    this.player.body.velocity.y = -320;
 		    this.player.frame = 3;
-
 		}
-
-		
 
 		// Call the 'takeCoin' function when the player takes a coin
 		game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
@@ -240,6 +235,7 @@ var collectCoinsState = {
 		// Call the 'restart' function when the player touches the enemy
 		game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
 
+		//Call restart button
 		if (count > 4)
 		    {
 
@@ -265,41 +261,16 @@ var collectCoinsState = {
 
 	// Function to restart the game
 	restart: function() {
-	    game.state.start('collectcoinsState');
+	    game.state.start('collectCoinsState');
 	},
+
+	// Function to exit game
 	clickOnActionExit: function()
 	{
 		this.game.state.start('GameState');
 	},
 
-	clickMoveLeft: function()
-	{
-		if(!this.clickMoveLeft.mouseDownCallback)
-		{
-			this.player.body.velocity.x = -160;
-		}
-		else if (!this.clickMoveLeft.mouseUpCallback) 
-		{
-			this.player.body.velocity.x = 0;
-		}
-	},
-
-	clickMoveRight: function()
-	{
-		if(!this.clickMoveRight.clicked)
-		{
-			this.player.body.velocity.x += 160;
-		}
-	},
-
-	clickMoveUp: function()
-	{
-		if(!this.clickMoveRight.clicked && this.player.body.touching.down)
-		{
-			this.player.body.velocity.y = -320;
-		}
-	},
-
+	// Function to Next level
 	gameOver: function()
 	{
 		if(!this.restartBackgrund.clicked)

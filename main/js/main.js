@@ -1,19 +1,11 @@
-var GlobalPoint =
-{
-	score: 0
-}
-
-var yourGameData;
-
 var number_of_apple = 0;
 var number_of_banana = 1;
 var number_of_bamboshoot = 1;
 var number_of_lettuce = 1;
 
-var pet;
-
 var GameState={
 
+	pandaGroup: {},
 
   preload: function()
   {
@@ -45,6 +37,7 @@ var GameState={
     this.game.load.image('blue_pants', 'img/blue_pants.png');
     this.game.load.image('blue_shirt', 'img/blue_shirt.png');
     this.game.load.image('blue_tie', 'img/blue_tie.png');
+    this.game.load.image('bluePantsSeparateModel', 'img/blue_pants_separate_model.png');
 
     this.game.load.image('apple_count', 'img/apple_count.png');
     this.game.load.image('bambooshoot_count', 'img/bambooshoot_count.png');
@@ -70,42 +63,46 @@ var GameState={
     this.background.inputEnabled = true;
     this.background.events.onInputDown.add(this.placeItem, this);
     
-    pet = this.game.add.sprite(180, 380, 'pet1',0);
-    pet.anchor.setTo(0.5);
+    this.pet = this.game.add.sprite(180, 380, 'pet1',0);
+    this.pet.anchor.setTo(0.5);
 
-	//draggable pet
-    pet.inputEnabled = true;
-    pet.input.enableDrag();
-    
-	if (!game.pet) {
-      var health, fun, coin;
+    //set the wear and group wear
+    //this.pandaGroup.bluePantsSeparateModel= this.game.add.sprite(180, 430,'bluePantsSeparateModel');
+    //this.pandaGroup.bluePantsSeparateModel.anchor.setTo(0.5);
 
-      health = this.game.yourGameData.health;
-      fun = this.game.yourGameData.fun;
-      coin = this.game.yourGameData.coin;
+    //this.pandaGroup.inputEnabled = true;
+   // this.pandaGroup.input.enableDrag();
 
-      //custom properties of the pet
-      game.pet={customParams : {health, fun, coin}};
-    }
+    //set health
 
-	var eating = pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
+    var health, fun, coin;
 
     
+    health = panda_health_main;
+    fun = panda_fun_main;
+    coin = panda_coins_main;
+
+    //custom properties of the pet
+    this.pet.customParams = {health, fun, coin};
+
+	var eating = this.pet.animations.add('eating', [0,1,0,1,0,1,0], 7, true);
+
+    //draggable pet
+    this.pet.inputEnabled = true;
+    this.pet.input.enableDrag();
 
     //Physxic add
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	this.game.physics.arcade.gravity.y = 100;
 
-	this.game.physics.enable( pet, Phaser.Physics.ARCADE);
+	this.game.physics.enable( this.pet, Phaser.Physics.ARCADE);
+	this.game.physics.enable( this.pandaGroup, Phaser.Physics.ARCADE);
 
 	this.game.world.setBounds(0, 0, 400, 450);
 
-    pet.body.collideWorldBounds = true;
-    pet.body.bounce.y = 0.4;
-    pet.body.gravity.y = 200;
-
-
-
+    this.pet.body.collideWorldBounds = true;
+    this.pet.body.bounce.y = 0.4;
+    this.pet.body.gravity.y = 200;
 
     //button for food
 	    	
@@ -173,16 +170,16 @@ var GameState={
 
 	reduceProperties: function() 
 	{
-	    pet.customParams.health = Math.max(0, pet.customParams.health - 10);
-	    pet.customParams.fun = Math.max(0, pet.customParams.fun - 10);
+	    this.pet.customParams.health = Math.max(0, this.pet.customParams.health - 10);
+	    this.pet.customParams.fun = Math.max(0, this.pet.customParams.fun - 10);
 	    this.refreshStats();
 	},
 
 	refreshStats: function() 
 	{
-	    this.healthText.text = pet.customParams.health;
-	    this.funText.text = pet.customParams.fun;
-	    this.coinText.text = pet.customParams.coin;
+	    this.healthText.text = this.pet.customParams.health;
+	    this.funText.text = this.pet.customParams.fun;
+	    this.coinText.text = this.pet.customParams.coin;
 
 	},
 
@@ -198,26 +195,26 @@ var GameState={
 
 	update: function() 
 	{ 
-	    if(pet.customParams.health <= 80 || pet.customParams.fun <= 80)
+	    if(this.pet.customParams.health <= 80 || this.pet.customParams.fun <= 80)
 	    {
-	    	pet.frame = 1;
+	    	this.pet.frame = 1;
 	    }
 
-	    if(pet.customParams.health <= 60 || pet.customParams.fun <= 60)
+	    if(this.pet.customParams.health <= 60 || this.pet.customParams.fun <= 60)
 	    {
-	    	pet.frame = 2;
+	    	this.pet.frame = 2;
 	    }
 
-	    if(pet.customParams.health <= 20 || pet.customParams.fun <= 20)
+	    if(this.pet.customParams.health <= 20 || this.pet.customParams.fun <= 20)
 	    {
-	    	pet.frame = 3;
+	    	this.pet.frame = 3;
 	    }
 
-	    if(pet.customParams.health <= 0 || pet.customParams.fun <= 0) 
+	    if(this.pet.customParams.health <= 0 || this.pet.customParams.fun <= 0) 
 	    {
-	     	pet.customParams.health = 0;
-	    	pet.customParams.fun = 0;
-	    	pet.frame = 4;
+	     	this.pet.customParams.health = 0;
+	    	this.pet.customParams.fun = 0;
+	    	this.pet.frame = 4;
 	    	this.uiBlocked = true;
 
 	    	this.restartBackgrund = this.game.add.sprite(82,220, 'restartBackgrund');
@@ -229,10 +226,10 @@ var GameState={
 	    var flaga = false;
 	    var flaga2 = false;
 
-	    if( pet.y < 160)
+	    if( this.pet.y < 160)
 	    {	
 	    	flaga = true;
-	    	if (pet.y < 440)
+	    	if (this.pet.y < 440)
 	    	{
 	    		flaga2 = true;
 	    	}
@@ -242,13 +239,13 @@ var GameState={
 
     	if (flaga2)
     	{
-    		if(pet.customParams.fun > 100)
+    		if(this.pet.customParams.fun > 100)
     		{
-    			pet.customParams.fun = 100;
+    			this.pet.customParams.fun = 100;
     		}
     		else
     		{
-    			pet.customParams.fun += 1;  	
+    			this.pet.customParams.fun += 1;  	
     		}
 		}
 
@@ -968,15 +965,11 @@ var GameState={
 };
 
 var game = new Phaser.Game(360,640,Phaser.AUTO);
-game.yourGameData = {};
-game.yourGameData.health = 100;
-game.yourGameData.coin = 100;
-game.yourGameData.fun = 100;
+
 game.state.add('GameState',GameState);
 game.state.add('collectCoinsState',collectCoinsState);
 game.state.add('brickDestroGame',brickDestroGame);
 
 game.state.start('GameState');
-
 
 
