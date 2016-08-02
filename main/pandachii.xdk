@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "",
       "projectGuid": "22d38112-7e3e-48dc-8546-195a96e87831",
-      "lastModifiedDate": 1466199795648,
+      "lastModifiedDate": 1468510502503,
       "creationDate": 1466196261710
     },
     "sourceDirectory": "",
@@ -58,7 +58,8 @@
             "*"
           ],
           "intents": [],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [],
         "splashes_": [],

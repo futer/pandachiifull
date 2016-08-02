@@ -2,70 +2,6 @@ var text;
 var count;
 var level;
 
-var level1 = [
-		    'xxxxxxxxxxxxxxx',
-		    'x             x',
-		    'x             x',
-		    'x   o         x',
-		    'x             x',
-		    'x             x',
-			'x   -----     x',
-		    'x         !!!!x',
-		    'x             x',
-		    'x             x',
-		    'x-----------  x',
-		    'x             x',
-		    'x     o       x',
-		    'x             x',
-		    'x    -------  x',
-		    'x             x',
-		    'x             x',
-		    'x  ---- !!    x',
-		    'x             x',
-		    'x   o         x',
-		    'x          o  x',
-		    'x!   !!       x',
-		    'x         ----x',
-		    'x             x',
-		    'x ------      x',
-			'x       o     x',
-		    'x             x',
-		    'x             x',
-		    'x-------------x',
-		];
-
-		var level2 = [
-		    'xxxxxxxxxxxxxxx',
-		    'x             x',
-		    'x             x',
-		    'x        o    x',
-		    'x             x',
-		    'x             x',
-			'x   -----     x',
-		    'x   !!!!! !!!!x',
-		    'x             x',
-		    'x  o          x',
-		    'x-----        x',
-		    'x    -        x',
-		    'x    - o      x',
-		    'x    -        x',
-		    'x    ----     x',
-		    'x             x',
-		    'x             x',
-		    'x  ---- !!    x',
-		    'x  -          x',
-		    'x  -o         x',
-		    'x             x',
-		    'x! !!--       x',
-		    'x         ----x',
-		    'x             x',
-		    'x ------      x',
-			'x       o     x',
-		    'x             x',
-		    'x             x',
-		    'x-------------x',
-		];
-
 var select_level = level1;
 
 var collectCoinsState = {  
@@ -197,16 +133,19 @@ var collectCoinsState = {
     	this.exiticton.events.onInputDown.add(this.clickOnActionExit, this);
 
     },
-
     update: function() {  
 
+    	this.buttonleft.events.onDragStart.add(this.isTouchingButtonLeft, this);
+    	this.buttonright.events.onDragStart.add(this.isTouchingButtonRight, this);
+    	this.buttonup.events.onDragStart.add(this.isTouchingButtonJump, this);
+
     	// Move the player when an arrow key is pressed and 
-		if (this.cursor.left.isDown || this.buttonleft.input.pointerOver()) 
+		if (this.cursor.left.isDown) 
 		{
 			this.player.body.velocity.x = -160;
 			this.player.animations.play('walking_left', 12, false);
 		}
-		else if (this.cursor.right.isDown || this.buttonright.input.pointerOver()) 
+		else if (this.cursor.right.isDown) 
 		{
 			this.player.body.velocity.x = 160;
 			this.player.animations.play('walking_right', 12, false);
@@ -216,14 +155,13 @@ var collectCoinsState = {
 			this.player.body.velocity.x = 0;
 			this.player.frame = 2;
 		}
-
 		// Make the player and the walls collide
 		game.physics.arcade.collide(this.player, this.walls);
 		game.physics.arcade.collide(this.player, this.floors);
 
 
 		// Make the player jump if he is touching the ground
-		if (this.spaceKey.isDown && this.player.body.touching.down ||this.buttonup.input.pointerOver() &&  this.player.body.touching.down) 
+		if (this.spaceKey.isDown && this.player.body.touching.down) 
 		{
 		    this.player.body.velocity.y = -320;
 		    this.player.frame = 3;
@@ -267,7 +205,7 @@ var collectCoinsState = {
 	// Function to exit game
 	clickOnActionExit: function()
 	{
-		this.game.state.start('GameState');
+		this.game.state.start('pandachiiState');
 	},
 
 	// Function to Next level
@@ -280,4 +218,28 @@ var collectCoinsState = {
 			this.game.state.restart();
 		}
 	},
+
+	isTouchingButtonLeft: function(button, pointer) 
+	{
+		this.player.body.velocity.x = -160;
+		this.player.animations.play('walking_left', 12, false);
+		
+	},
+
+	isTouchingButtonRight: function(button, pointer) 
+	{
+		this.player.body.velocity.x = 160;
+		this.player.animations.play('walking_right', 12, false);
+	},
+
+	isTouchingButtonJump: function(button, pointer) 
+	{
+		if(this.player.body.touching.down)
+		{
+			this.player.body.velocity.y = -320;
+			this.player.frame = 3;
+		}
+		
+	},
+
 };

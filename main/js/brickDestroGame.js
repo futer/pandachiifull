@@ -10,7 +10,8 @@ var brickDestroGame = {
     	game.load.image('paddle', 'img/brick-destro/paddle.png');
     	game.load.image('brick', 'img/brick-destro/brick.png');  
     	game.load.image('ball', 'img/brick-destro/ball.png'); 
-    	game.load.image('score_bg','img/brick-destro/score_background.png');
+    	game.load.image('score_bg','img/brick-destro/scoreBackground.png');
+    	game.load.image('pause_bg','img/brick-destro/pauseBackground.png');
     	game.load.image('restartBackgrund', 'img/restert_background.png');
     },
 
@@ -20,11 +21,13 @@ var brickDestroGame = {
     	//game.stage.backgroundColor = '#ffffff';
     	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
+    	//set world Bounds
 		this.game.world.setBounds(0, 0, 360,640);
+
 
 		game.world.enableBody = true;
 
+		//Set movement ket
 		this.left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 	    this.right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
@@ -41,11 +44,25 @@ var brickDestroGame = {
 	    // Make sure the paddle won't go outside stage
 	    this.paddle.body.collideWorldBounds = true;
 
+	    // Create cursors for pause inGame
+	    cursors = game.input.keyboard.createCursorKeys();	    
 
+	    //Set pauseKey for "P"
+	    pauseKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+    	pauseKey.onDown.add(this.togglePause, this);
+
+    	//Add bricks
 	    this.addBricks();
 
-		// Add the ball 
+			// Add the ball 
 		    this.ball = game.add.sprite(200, 300, 'ball');  
+
+		    //Create pauseButton
+		    this.pauseBackgrund = this.game.add.sprite(150,10, 'pause_bg');
+			this.pauseBackgrund.clicked = false;
+			this.pauseBackgrund.inputEnabled = true;
+			this.pauseBackgrund.events.onInputDown.add(this.togglePause,this);
+
 
 		    // Give the ball some initial speed
 		    this.ball.body.velocity.x = 350;
@@ -55,6 +72,7 @@ var brickDestroGame = {
 		    this.ball.body.bounce.setTo(1); 
 		    this.ball.body.collideWorldBounds = true;
 
+		    //Create score backGround
 		    this.game.add.sprite(10,10, 'score_bg');
 
 			count = 0;
@@ -73,6 +91,13 @@ var brickDestroGame = {
 
     },
 
+    //Toggle pause
+    togglePause: function() 
+    {
+    	game.physics.arcade.isPaused = (game.physics.arcade.isPaused) ? false : true;
+	},
+
+	//Add bricks
     addBricks: function()
     {
     	// Create a group that will contain all the bricks
@@ -93,9 +118,10 @@ var brickDestroGame = {
 		    }
     },
 
+    //Update
     update: function() 
     {  
-
+    	//Count brick for reAdd
     	if(brickCounts == 25)
 	    {
 	    	if(this.ball.y > 400)
@@ -106,13 +132,24 @@ var brickDestroGame = {
 
 	    }
 
-	    if (this.left.isDown) this.paddle.body.velocity.x = -300;
-	    else if (this.right.isDown) this.paddle.body.velocity.x = 300; 
+	    //Set movement
+	    if (this.left.isDown) 
+	    {
+	    	// Paddle move to left
+	    	this.paddle.body.velocity.x = -300;
+	    }
+	    else if(this.right.isDown) 
+	    {
+	    	// Paddle move to right
+	    	this.paddle.body.velocity.x = 300; 
+	    }
+	    else 
+	    {
+	        // Stop the paddle when no key is pressed
+	    	this.paddle.body.velocity.x = 0;     
+	    }	
 
-	    // Stop the paddle when no key is pressed
-	    else this.paddle.body.velocity.x = 0;     
-
-	    // Add collisions between the paddle and the ball
+	    	// Add collisions between the paddle and the ball
 		    game.physics.arcade.collide(this.paddle, this.ball);
 
 		    // Call the 'hit' function when the ball hits a brick
@@ -121,18 +158,20 @@ var brickDestroGame = {
 		    // Restart the game if the ball is below the paddle
 		    if (this.ball.y > this.paddle.y)
 		    {
-
+		    	//Create restart button
 				this.restartBackgrund = this.game.add.sprite(82,220, 'restartBackgrund');
 				this.restartBackgrund.clicked = false;
 				this.restartBackgrund.inputEnabled = true;
 				this.restartBackgrund.events.onInputDown.add(this.gameOver,this);
 	    	
+	    		//Kill ball for stop game
 		        this.ball.kill();
 
 		    }
 
 	},
 
+	//Restart state
 	gameOver: function()
 	{
 		if(!this.restartBackgrund.clicked)
@@ -142,6 +181,7 @@ var brickDestroGame = {
 		}
 	},
 
+	//Set colisson bettwen ball and brick
 	hit: function(ball, brick) 
 	{  
 	    brick.kill();
@@ -151,9 +191,11 @@ var brickDestroGame = {
 		//debug.setText("Count" + brickCounts);
 		text.setText("Point: " + count);
 	},
+
+	//Exit button
 	clickOnActionExit: function()
 	{
-		this.game.state.start('GameState');
+		this.game.state.start('pandachiiState');
 	},
 
 };

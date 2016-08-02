@@ -6,20 +6,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" /> 
 	<title>Pandachii</title> 
 	<link type="text/css" rel="stylesheet" href="css/main.css"/>
+	<script src="js/colectCoinsLevel.js"></script>
 	<script src="js/phaser.js"></script> 
+	<script src="js/hammer.min.js"></script> 
 	<script src="js/global_data.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head> 
 
 <body> 
 
-	
-
 	<div id="main" style="display: block;">
-<CENTER>
-			<img src="img/background.png"/>
+	
+		<CENTER>
+				<img src="img/background.png"/>
 
-	</CENTER>
+		</CENTER>
 
 	<center>
 		<a href='#' id='mylink'><img src="img/button_start.png"/></a>
@@ -27,7 +28,7 @@
 	</div>
 
 			<script type="text/javascript">
-
+		
 				var myLink = document.getElementById('mylink');
 				
 				myLink.onclick = function(){
@@ -35,7 +36,7 @@
 					var script;
 					script = document.createElement("script");
 				    script.type = "text/javascript";
-				    script.src = "js/brick_destro_game.js"; 
+				    script.src = "js/brickDestroGame.js"; 
 				    document.getElementsByTagName("head")[0].appendChild(script);
 				    
 					script = document.createElement("script");
@@ -45,7 +46,7 @@
 
 				    script = document.createElement("script");
 				    script.type = "text/javascript";
-				    script.src = "js/main.js"; 
+				    script.src = "js/pandachiiMain.js"; 
 				    document.getElementsByTagName("head")[0].appendChild(script);
 
 					

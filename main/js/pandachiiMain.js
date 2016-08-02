@@ -3,7 +3,7 @@ var number_of_banana = 1;
 var number_of_bamboshoot = 1;
 var number_of_lettuce = 1;
 
-var GameState={
+var pandachiiState={
 
 	pandaGroup: {},
 
@@ -966,10 +966,10 @@ var GameState={
 
 var game = new Phaser.Game(360,640,Phaser.AUTO);
 
-game.state.add('GameState',GameState);
+game.state.add('pandachiiState',pandachiiState);
 game.state.add('collectCoinsState',collectCoinsState);
 game.state.add('brickDestroGame',brickDestroGame);
 
-game.state.start('GameState');
+game.state.start('pandachiiState');
 
 
