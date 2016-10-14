@@ -18,6 +18,10 @@ var collectCoinsState = {
 	game.load.image('coin', 'img/collection/coin.png');
 	game.load.image('enemy', 'img/collection/lava.png'); 
 	game.load.image('move', 'img/collection/button_move.png');
+	game.load.image('nextLevel', 'img/collection/nextLevel.png');
+	game.load.image('restart', 'img/collection/restart.png');
+
+
 
     },
 
@@ -41,7 +45,6 @@ var collectCoinsState = {
     	this.player = this.game.add.sprite(70, 100, 'player', 2);
 
     	this.player.inputEnabled = true;
-	    //this.player.input.enableDrag();
 
 	    //Vertial and collide
 	    this.player.input.allowVerticalDrag = false;
@@ -117,15 +120,8 @@ var collectCoinsState = {
 		    }
 		}
 
-		//point text and count
+		//point count
 		count = 0;
-
-		text = game.add.text(5, 5, "Point: 0", 
-		{
-			font: "bold 12px Arial",
-			fill: "#FFF",
-
-		 });
 
 		//Exit icon
 		this.exiticton = game.add.sprite(335, 5, 'exiticon');  
@@ -155,6 +151,7 @@ var collectCoinsState = {
 			this.player.body.velocity.x = 0;
 			this.player.frame = 2;
 		}
+
 		// Make the player and the walls collide
 		game.physics.arcade.collide(this.player, this.walls);
 		game.physics.arcade.collide(this.player, this.floors);
@@ -173,15 +170,20 @@ var collectCoinsState = {
 		// Call the 'restart' function when the player touches the enemy
 		game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
 
-		//Call restart button
+		//Call next level button
 		if (count > 4)
 		    {
 
-				this.restartBackgrund = this.game.add.sprite(82,120, 'restartBackgrund');
+				this.restartBackgrund = this.game.add.sprite(82,120, 'nextLevel');
 				this.restartBackgrund.clicked = false;
 				this.restartBackgrund.inputEnabled = true;
 				this.restartBackgrund.events.onInputDown.add(this.gameOver,this);
-	   
+	   			
+	   			this.restartBackgrund = this.game.add.sprite(82,180, 'restart');
+				this.restartBackgrund.clicked = false;
+				this.restartBackgrund.inputEnabled = true;
+				this.restartBackgrund.events.onInputDown.add(this.restart,this);
+
 	   			this.player.kill();
 
 		    }
@@ -194,7 +196,6 @@ var collectCoinsState = {
 	takeCoin: function(player, coin) {
 	    coin.kill();
 	    count = count + 1;
-		text.setText("Point: " + count);
 	},
 
 	// Function to restart the game
@@ -205,7 +206,7 @@ var collectCoinsState = {
 	// Function to exit game
 	clickOnActionExit: function()
 	{
-		this.game.state.start('pandachiiState');
+		this.game.state.start('collectCoinsStateMenu');
 	},
 
 	// Function to Next level

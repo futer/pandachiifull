@@ -63,7 +63,6 @@ var brickDestroGame = {
 			this.pauseBackgrund.inputEnabled = true;
 			this.pauseBackgrund.events.onInputDown.add(this.togglePause,this);
 
-
 		    // Give the ball some initial speed
 		    this.ball.body.velocity.x = 350;
 		    this.ball.body.velocity.y = 350;
@@ -195,7 +194,7 @@ var brickDestroGame = {
 	//Exit button
 	clickOnActionExit: function()
 	{
-		this.game.state.start('pandachiiState');
+		this.game.state.start('brickDestroGameMenu');
 	},
 
 };

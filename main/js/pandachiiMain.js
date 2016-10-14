@@ -45,12 +45,16 @@ var pandachiiState={
     this.game.load.image('lettuce_count', 'img/lettuce_count.png');
     this.game.load.image('exiticon', 'img/exit.png');
 
+	this.game.load.image('cdIcon', 'img/couldron/couldronIcon.png');
+
+    this.game.load.image('achiIcon', 'img/achivments/achivmentsIcon.png');
 
     this.load.spritesheet('pet1', 'img/pet.png', 115, 140, 5);
     this.load.spritesheet('pet_black_hat', 'img/pet_black_hat.png', 115, 173, 5);
     this.load.spritesheet('pet_blue_pants', 'img/pet_blue_pants.png', 115, 140, 5);
     this.load.spritesheet('pet_blue_tie', 'img/pet_blue_tie.png', 115, 140, 5);
     this.load.spritesheet('pet_blue_tshirt', 'img/pet_blue_tshirt.png', 115, 140, 5);
+
   },
 
 
@@ -103,6 +107,21 @@ var pandachiiState={
     this.pet.body.collideWorldBounds = true;
     this.pet.body.bounce.y = 0.4;
     this.pet.body.gravity.y = 200;
+
+    //Add Achivment/Couldron icon
+
+    this.achiIcon = this.game.add.sprite(330,120,'achiIcon');
+    this.achiIcon.anchor.setTo(0.5);
+    this.achiIcon.inputEnabled = true;
+    //this.achiIcon.onInputDown.add('');
+    this.achiIcon.clicked = false;
+
+	this.cdIcon = this.game.add.sprite(330,170,'cdIcon');
+    this.cdIcon.anchor.setTo(0.5);
+    this.cdIcon.inputEnabled = true;
+    //this.cdIcon.onInputDown.add('');
+    this.cdIcon.clicked = false;
+
 
     //button for food
 	    	
@@ -186,7 +205,6 @@ var pandachiiState={
 	placeItem: function() 
 	{
 
-	        
 	        //show updated stats
 	        this.refreshStats();
 
@@ -234,8 +252,6 @@ var pandachiiState={
 	    		flaga2 = true;
 	    	}
 	    }
-
-
 
     	if (flaga2)
     	{
@@ -951,14 +967,14 @@ var pandachiiState={
 
 	showtry: function()
 	{
-		this.game.state.start('brickDestroGame');
+		this.game.state.start('brickDestroGameMenu');
 
 	},
 
 	showtry2: function()
 	{
 
-		this.game.state.start('collectCoinsState');
+		this.game.state.start('collectCoinsStateMenu');
 
 	},
 		
@@ -967,8 +983,13 @@ var pandachiiState={
 var game = new Phaser.Game(360,640,Phaser.AUTO);
 
 game.state.add('pandachiiState',pandachiiState);
+
 game.state.add('collectCoinsState',collectCoinsState);
+game.state.add('collectCoinsStateMenu',collectCoinsStateMenu);
+game.state.add('collectCoinsStateTutorial',collectCoinsStateTutorial);
+
 game.state.add('brickDestroGame',brickDestroGame);
+game.state.add('brickDestroGameMenu', brickDestroGameMenu);
 
 game.state.start('pandachiiState');
 

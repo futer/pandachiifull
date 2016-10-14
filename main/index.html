@@ -10,7 +10,11 @@
 	<script src="js/phaser.js"></script> 
 	<script src="js/hammer.min.js"></script> 
 	<script src="js/global_data.js"></script>
+	<script src="js/pace.min.js"></script>
+	<script src="js/achivmentList.js"></script>
+	<script src="js/cauldronList.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="css/pace.css">
 </head> 
 
 <body> 
@@ -33,20 +37,47 @@
 				
 				myLink.onclick = function(){
 				var hide = document.getElementById('main').style.display = 'none' ;
+
 					var script;
+
+					script = document.createElement("script");
+				    script.type = "text/javascript";
+				    script.src = "js/brickDestroGameMenu.js"; 
+				    document.getElementsByTagName("head")[0].appendChild(script);
+
 					script = document.createElement("script");
 				    script.type = "text/javascript";
 				    script.src = "js/brickDestroGame.js"; 
 				    document.getElementsByTagName("head")[0].appendChild(script);
 				    
-					script = document.createElement("script");
+				    script = document.createElement("script");
 				    script.type = "text/javascript";
 				    script.src = "js/colectcoin.js"; 
+				    document.getElementsByTagName("head")[0].appendChild(script);
+				    
+					script = document.createElement("script");
+				    script.type = "text/javascript";
+				    script.src = "js/collectcoinMenu.js"; 
+				    document.getElementsByTagName("head")[0].appendChild(script);
+
+				    script = document.createElement("script");
+				    script.type = "text/javascript";
+				    script.src = "js/collectCoinsStateTutorial.js"; 
 				    document.getElementsByTagName("head")[0].appendChild(script);
 
 				    script = document.createElement("script");
 				    script.type = "text/javascript";
 				    script.src = "js/pandachiiMain.js"; 
+				    document.getElementsByTagName("head")[0].appendChild(script);
+
+				    script = document.createElement("script");
+				    script.type = "text/javascript";
+				    script.src = "js/achivmentList.js"; 
+				    document.getElementsByTagName("head")[0].appendChild(script);
+
+				    script = document.createElement("script");
+				    script.type = "text/javascript";
+				    script.src = "js/cauldronList.js"; 
 				    document.getElementsByTagName("head")[0].appendChild(script);
 
 					
