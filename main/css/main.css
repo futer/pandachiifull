@@ -3,3 +3,18 @@ body{
 	margin: 0px;
 	background-color: #FFF;
 }
+
+@media only screen and (max-device-width: 1024px) {
+	canvas{
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+
+@media only screen and (device-width: 412px) {
+	canvas{
+		width: 100% !important;
+		height: 80% !important;
+		margin-top: -12px;
+	}
+}
