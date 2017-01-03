@@ -985,7 +985,7 @@ var game = new Phaser.Game(360,640,Phaser.AUTO);
 game.state.add('pandachiiState',pandachiiState);
 
 game.state.add('collectCoinsState',collectCoinsState);
-game.state.add('collectCoinsStateMenu',collectCoinsStateMenu);
+game.state.add('collectCoinsStateMenu',collectcoinMenu);
 game.state.add('collectCoinsStateTutorial',collectCoinsStateTutorial);
 
 game.state.add('brickDestroGame',brickDestroGame);

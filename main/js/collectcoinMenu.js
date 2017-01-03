@@ -1,4 +1,4 @@
-var collectCoinsStateMenu = {  
+var collectcoinMenu = {  
 
     preload: function() 
     {  

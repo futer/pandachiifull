@@ -187,18 +187,19 @@ Intro
 #wstep{
     height:100vh;
     width:100%;
-    background-image: url('/pandachiifull/img/main_panda_bg.png');
+    background-image: url('/pandachiifull/img/main_panda_bg3.jpg');
     background-position:center;
     background-repeat:no-repeat;
     overflow-y:hidden;
     text-align:center;
     position:relative;
+    color: white !important;
 }
 
 #prj{
     height:100vh;
     width:100%;
-    background-image: url('/pandachiifull/img/main_panda_bg2.png');
+    background-image: url('/pandachiifull/img/main_panda_bg2.jpg');
     background-position:center;
     background-repeat:no-repeat;
     overflow-y:hidden;
@@ -221,7 +222,7 @@ Intro
 #repo{
     height:100vh;
     width:100%;
-    background-image: url('/pandachiifull/img/repo.jpg');
+    background-image: url('/pandachiifull/img/main_panda_bg2.jpg');
     background-position:center;
     background-repeat:no-repeat;
     overflow-y:hidden;
@@ -234,6 +235,9 @@ Intro
 	width:100%;
 	margin-top:100px;
 	z-index:1000;
+	color: #FFF;
+	text-shadow: 1px 1px 2px black,1px -1px 2px black,-1px  1px 2px black,-1px -1px 2px black;
+	font-weight: bold;
 }
 #intro .brand {
 	margin-top: 40px;
